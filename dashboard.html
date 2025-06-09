@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Dashboard - PlaySync</title>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  </head>
+  <body style="font-family: Arial, sans-serif; padding: 2rem">
+    <h2>Welcome to Watch Buddy Dashboard</h2>
+    <div id="userInfo">Loading user info...</div>
+
+    <script>
+      const supabaseClient = supabase.createClient(
+        "https://qyvqsuwtvqrcjcvqigdl.supabase.co",
+        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InF5dnFzdXd0dnFyY2pjdnFpZ2RsIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDk0Mzc3MjMsImV4cCI6MjA2NTAxMzcyM30.rbQsNrfmhHjXnnOc8UAFTrknEKYkXDuKcP-IMPm5TdI"
+      );
+
+      // Get logged-in user info
+      supabaseClient.auth.getSession().then(({ data: { session } }) => {
+        if (session) {
+          const email = session.user.email;
+          document.getElementById(
+            "userInfo"
+          ).textContent = `✅ Logged in as ${email}`;
+        } else {
+          document.getElementById("userInfo").textContent =
+            "❌ No active session. Please log in.";
+        }
+      });
+    </script>
+  </body>
+</html>
